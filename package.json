@@ -1,0 +1,27 @@
+{
+  "name": "flightcontrol",
+  "version": "0.1.0",
+  "description": "//todo",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "rebuild": "electron-rebuild.cmd"
+  },
+  "author": "AWielguszewski <roftii@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "^1.6.2",
+    "electron-rebuild": "^1.5.7",
+    "serialport": "^4.0.7"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AWielguszewski/flightcontrol.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AWielguszewski/flightcontrol/issues"
+  },
+  "homepage": "https://github.com/AWielguszewski/flightcontrol#readme"
+}
