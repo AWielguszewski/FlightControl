@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "rebuild": ".\\node_modules\\.bin\\electron-rebuild.cmd"
+    "rebuild": ".\\node_modules\\.bin\\electron-rebuild.cmd",
+    "doc": ".\\node_modules\\.bin\\jsdoc2md main.js >> README.md"
   },
   "author": "AWielguszewski <roftii@gmail.com>",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "devtron": "^1.4.0",
     "electron": "^1.6.2",
     "electron-rebuild": "^1.5.7",
+    "jsdoc-to-markdown": "^3.0.0",
     "serialport": "^4.0.7"
   },
   "dependencies": {},

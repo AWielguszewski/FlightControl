@@ -6,6 +6,10 @@ const url = require('url')
 
 let win
 
+/**
+ * Creating the main window.
+ * 800x600
+ */
 function createWindow() {
     win = new BrowserWindow({
         width: 800,
