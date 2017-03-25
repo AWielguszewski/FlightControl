@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "rebuild": "electron-rebuild.cmd"
+    "rebuild": ".\\node_modules\\.bin\\electron-rebuild.cmd"
   },
   "author": "AWielguszewski <roftii@gmail.com>",
   "license": "ISC",
