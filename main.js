@@ -1,6 +1,6 @@
 'use strict';
 
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -12,19 +12,27 @@ let win
  */
 function createWindow() {
     win = new BrowserWindow({
-        width: 800,
         height: 600,
+        width: 1280,
+        backgroundColor: '#262626',
         webPreferences: {
             devTools: true
         },
-        autoHideMenuBar: true
+        autoHideMenuBar: true,
+        fullscreenable: false,
+        resizable: false
     })
 
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, 'starting_page.html'),
         protocol: 'file:',
         slashes: true
     }))
+
+    win.webContents.on('dom-ready', (e) => {
+        e.preventDefault();
+        win.webContents.send('domrdy', 'DOM ready event fired');
+    })
 
     win.on('closed', () => {
         win = null
