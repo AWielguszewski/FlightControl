@@ -12,15 +12,17 @@ let win
  */
 function createWindow() {
     win = new BrowserWindow({
+        minWidth: 500,
+        minHeight: 600,
         height: 600,
         width: 1280,
-        backgroundColor: '#262626',
+        backgroundColor: '#ffffff',
         webPreferences: {
             devTools: true
         },
         autoHideMenuBar: true,
         fullscreenable: false,
-        resizable: false
+        resizable: true
     })
 
     win.loadURL(url.format({

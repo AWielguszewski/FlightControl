@@ -2,53 +2,107 @@
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+    font-family: TwCenMT-Condensed, Tw Cen MT Condensed;
 }
 
 
 body {
     margin: 0px;
     padding: 0px;
+    animation: fadeIN ease 2s 1 forwards;
+}
+
+@keyframes fadeIN {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
 .main_container {
-    background: url(../SVG/start_screen.svg) no-repeat center;
+    background: white;
     width: 100%; height: 100%;
     position: absolute;
+    overflow: hidden;
+}
+
+.middle_panel {
+    position: relative;
+    width: 450px;
+    margin: 0 auto;
+    height: 100%;
+    background-color: #1c1f26;
+}
+
+.top_logo,
+.port_list,
+.bottom_info {
+    position: relative;
+    width: 100%;
+    margin: 0 0;
+}
+
+.top_logo {
+    display: flex;
+    justify-content: center;
+    height: 35%;
+    padding-top: 5%;
+}
+
+.bottom_info {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
+    height: 20%;
 }
 
 .port_list {
-    border: white 1px solid;
-    width: 428px;
-    height: 196px;
-    margin: 0;
-    position: absolute;
-    top: 201px;
-    left: 343px;
+    height: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.refresh_container {
+    height: 20%;
+    width: 10%;
+    transition: filter 0.5s ease;
+}
+
+.refresh_container:hover {
+    filter: brightness(200%);
+}
+
+.refresh_container:active {
+    transform: translateX(1px) translateY(1px);
+}
+
+.list_info {
+    color: #b8daff;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    animation: 2s ease-in infinite blink;
+}
+
+@keyframes blink {
+    0% {opacity: 0;}
+    45% {opacity: 1;}
+    55% {opacity: 1;}
+    100% {opacity: 0;}
 }
 
 .port_list_item {
-    position:relative;
-    width: 100%;
-    min-height: 40px;
-    border: #17191A 1px solid;
 }
 
 .port_list_item_COM {
-    position:relative;
-    float: left;
-    min-height: 40px;
-    width: 20%;
-    height: 100%;
 }
 
 .port_list_item_DESC {
-    position:relative;
-    float: left;
-    min-height: 40px;
-    width: 80%;
-    height: 100%;
 }
 
 .port_list_item:hover {
-    border: white 1px solid;
+}
+
+img {
+    height: 100%;
 }

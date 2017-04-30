@@ -5,20 +5,23 @@ const { ipcRenderer } = require('electron')
 
 ipcRenderer.on('domrdy', (event, msg) => {
     console.log(msg);
-    //animacja wczytania tla
-    loadPortList()
-        //then() animacja pojawienia sie listy
-        .catch((errMsg) => {
-            console.log(errMsg)
-        })
+    document.querySelector('.refresh_container').addEventListener('click', () => createList());
 })
+
+function createList() {
+    loadPortList()
+    //then cos tam
+    .catch((error)=>{
+        console.log(`Error when creating list: ${error}`);
+    })
+}
 
 function loadPortList() {
     return new Promise((resolve, reject) => {
         console.log('w loadportlist');
         SerialPort.list((err, ports) => {
             if (err) { reject(err.message) }
-            if (!ports.length) { createEmptyList(); reject('Nothing connected'); }
+            if (!ports.length) { emptyList(); reject('Nothing connected'); }
             console.log(`liczba portow: ${ports.length}`);
             console.log(ports);
             for (let i = 0; i < ports.length; i++) { createPortListItem(i, ports[i]) }
@@ -71,7 +74,7 @@ function createPortListItem(i, port) {
     })
 }
 
-function createEmptyList() {
-    //empty list
+function emptyList() {
+    document.getElementById('list_info_text').innerHTML = '<i>no available devices have been detected</i>'
     console.log('creating empty list');
 }
