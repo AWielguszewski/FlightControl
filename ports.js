@@ -3,28 +3,32 @@
 const SerialPort = require('serialport')
 const { ipcRenderer } = require('electron')
 
+let currentTimeoutID = '';
+
 ipcRenderer.on('domrdy', (event, msg) => {
     console.log(msg);
     document.querySelector('.refresh_container').addEventListener('click', () => createList());
 })
 
 function createList() {
+    if (currentTimeoutID != '') window.clearTimeout(currentTimeoutID);
     loadPortList()
-    //then cos tam
-    .catch((error)=>{
-        console.log(`Error when creating list: ${error}`);
-    })
+        //then cos tam
+        .catch((error) => {
+            console.log(`Error when creating list: ${error}`);
+        })
 }
 
 function loadPortList() {
     return new Promise((resolve, reject) => {
-        console.log('w loadportlist');
         SerialPort.list((err, ports) => {
             if (err) { reject(err.message) }
-            if (!ports.length) { emptyList(); reject('Nothing connected'); }
-            console.log(`liczba portow: ${ports.length}`);
-            console.log(ports);
-            for (let i = 0; i < ports.length; i++) { createPortListItem(i, ports[i]) }
+            else if (!ports.length) { emptyList(); reject('Nothing connected'); }
+            else {
+                if (ports.length == 1) { changeInfo('1 port available') }
+                else { changeInfo(`${ports.length} ports available`) }
+                for (let i = 0; i < ports.length; i++) { createPortListItem(i, ports[i]) }
+            }
         })
     });
 }
@@ -43,8 +47,8 @@ function connectToCOM() {
 }
 
 function createPortListItem(i, port) {
-    let portList = document.getElementById('port_list');
-    console.log(portList);
+    let portList = document.querySelector('.list');
+    portList.innerHTML = '';
     let txtContent;
 
     let portListItem = document.createElement('div');
@@ -68,13 +72,17 @@ function createPortListItem(i, port) {
 
     document.getElementById(`port_list_item_${i}`).addEventListener('click', () => {
         console.log('ss');
-        let elem = document.getElementById(`port_list_item_${i}`)
-        elem.style.backgroundColor = 'white';
-        elem.style.border = 'white 1px solid';
     })
 }
 
 function emptyList() {
-    document.getElementById('list_info_text').innerHTML = '<i>no available devices have been detected</i>'
+    let portList = document.querySelector('.list');
+    portList.innerHTML = '';
+    changeInfo('no available devices have been detected');
+    currentTimeoutID = setTimeout(() => changeInfo('hit refresh to update the port list'), 2000);
     console.log('creating empty list');
+}
+
+function changeInfo(text) {
+    document.getElementById('list_info_text').innerHTML = `<i>${text}</i>`;
 }

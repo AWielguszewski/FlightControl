@@ -64,6 +64,7 @@ body {
 
 .refresh_container {
     height: 20%;
+    margin-top: 5%;
     width: 10%;
     transition: filter 0.5s ease;
 }
@@ -91,16 +92,63 @@ body {
     100% {opacity: 0;}
 }
 
+.list {
+    width: 90%;
+    height: 70%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    padding-top: 5px;
+    overflow: auto;
+}
+
 .port_list_item {
-}
-
-.port_list_item_COM {
-}
-
-.port_list_item_DESC {
+    border: 1px solid #b8daff;
+    background-color: #b8daff;
+    color: #1c1f26;
+    margin: 0px auto;
+    margin-bottom: 15px;
+    height: 25px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    transition: 0.2s ease-in;
 }
 
 .port_list_item:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 15px 0px rgba(0, 0, 0, 0.6);
+    transform: translateX(-2px) translateY(-2px);
+}
+
+.port_list_item_COM {
+    width: 20%;
+    color: white;
+    text-align: center;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.7);
+    position: relative;
+    z-index: 1;
+    padding: 2px 5px;
+}
+
+.port_list_item_COM::before {
+    width: 100%;
+    height: 30px;
+    transform: skew(-30deg);
+    content: '';
+    top: -4px;
+    left: 3px;
+    position: absolute;
+    z-index: -1;
+    background-color: #324152;
+}
+
+.port_list_item_DESC {
+    width: 80%;
+    text-align: center;
+    padding: 2px 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 img {
