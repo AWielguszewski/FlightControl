@@ -105,13 +105,16 @@ body {
     border: 1px solid #b8daff;
     background-color: #b8daff;
     color: #1c1f26;
+    opacity: 0;
     margin: 0px auto;
     margin-bottom: 15px;
     height: 25px;
     width: 80%;
     display: flex;
     flex-direction: row;
-    transition: 0.2s ease-in;
+    transition:box-shadow 0.2s ease-in;
+    transition:transform 0.2s ease-in;
+    animation: 1s ease 0.5s 1 forwards fadeIN;
 }
 
 .port_list_item:hover {
