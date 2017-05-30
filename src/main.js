@@ -26,10 +26,12 @@ function createWindow() {
     })
 
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'starting_page.html'),
+        pathname: path.join('..', 'src', 'window.html'),
         protocol: 'file:',
         slashes: true
     }))
+
+    exports.win;
 
     win.webContents.on('dom-ready', (e) => {
         e.preventDefault();
@@ -47,7 +49,7 @@ function createWindow() {
 
 app.on('ready', createWindow)
 
-app.on('window-all-closed', () => {
+app.on('window-all-closed', (event, msg) => {
     if (process.platform !== 'darwin') {
         app.quit()
     }

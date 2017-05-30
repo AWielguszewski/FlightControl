@@ -17,6 +17,11 @@ body {
     100% {opacity: 1;}
 }
 
+@keyframes fadeOUT {
+    0% {opacity: 1;}
+    100% {opacity: 0; visibility: hidden}
+}
+
 .main_container {
     background: white;
     width: 100%; height: 100%;
@@ -156,4 +161,39 @@ body {
 
 img {
     height: 100%;
+}
+
+.connection-info{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    margin: 0 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    visibility: hidden;
+}
+
+.connection-info-show{
+    visibility: visible;
+    animation: ease forwards 0.5s 1 fadeIN;
+}
+
+.connection-info-hide{
+    animation: ease forwards 0.5s 1 fadeOUT;
+}
+
+.info-text-wrapper{
+    z-index: 101;
+    display: flex;
+    width: 100%;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+.info-text{
+    font-style: italic;
 }
