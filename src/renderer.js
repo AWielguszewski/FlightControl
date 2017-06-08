@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {Window} from './components.js';
+import Window from './components/window.js';
 
 ReactDOM.render(
     <Window />,

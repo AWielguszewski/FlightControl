@@ -3,7 +3,7 @@
 var gulp = require('gulp')
   , nodemon = require('gulp-nodemon')
   , babel = require('gulp-babel')
-  , webpack = require('gulp-webpack')
+  , webpack = require('webpack-stream')
   , sass = require('gulp-sass')
 
 gulp.task('move', ['pack'], function () {
@@ -17,7 +17,8 @@ gulp.task('pack', ['sass'], function () {
       entry: './temp/renderer.js',
       output: {
         filename: 'bundle.js'
-      }
+      },
+      target: 'node'
     }))
     .pipe(gulp.dest('dist'))
 })

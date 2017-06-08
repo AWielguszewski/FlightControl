@@ -4,11 +4,107 @@
   box-sizing: border-box;
   font-family: TwCenMT-Condensed, Tw Cen MT Condensed; }
 
-body {
-  position: absolute;
+@keyframes fadeIN {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes fadeOUT {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0;
+    visibility: hidden; } }
+
+body, #root {
+  background: white;
+  margin: 0 0;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  position: absolute;
+  overflow: hidden; }
 
 #root {
-  width: 100%;
-  height: 100%; }
+  display: flex;
+  justify-content: center; }
+
+.middle-panel {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  height: 100%;
+  background-color: #1c1f26; }
+  .middle-panel .top-logo,
+  .middle-panel .port-list,
+  .middle-panel .bottom-logo {
+    width: 100%;
+    margin: 0 0; }
+  .middle-panel .top-logo {
+    display: flex;
+    justify-content: center;
+    height: 35%;
+    padding-top: 5%; }
+  .middle-panel .bottom-logo {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
+    height: 20%; }
+  .middle-panel .port-list {
+    height: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    overflow: auto; }
+    .middle-panel .port-list .port-list-info {
+      font-style: italic;
+      color: #b8daff;
+      opacity: 0;
+      animation: 1s ease 0.5s 1 forwards fadeIN; }
+    .middle-panel .port-list .port-list-item {
+      border: 1px solid #b8daff;
+      background-color: #b8daff;
+      color: #1c1f26;
+      opacity: 0;
+      margin: 0px auto;
+      margin-bottom: 15px;
+      height: 25px;
+      width: 80%;
+      display: flex;
+      flex-direction: row;
+      transition: box-shadow 0.2s ease-in;
+      transition: transform 0.2s ease-in;
+      animation: 1s ease 0.5s 1 forwards fadeIN; }
+    .middle-panel .port-list .port-list-item:hover {
+      cursor: pointer;
+      box-shadow: 3px 3px 15px 0px rgba(0, 0, 0, 0.6);
+      transform: translateX(-2px) translateY(-2px); }
+    .middle-panel .port-list .port-list-item-com {
+      width: 20%;
+      color: white;
+      text-align: center;
+      text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.7);
+      position: relative;
+      z-index: 1;
+      padding: 2px 5px; }
+    .middle-panel .port-list .port-list-item-com::before {
+      width: 100%;
+      height: 30px;
+      transform: skew(-30deg);
+      content: '';
+      top: -4px;
+      left: 3px;
+      position: absolute;
+      z-index: -1;
+      background-color: #324152; }
+    .middle-panel .port-list .port-list-item-desc {
+      width: 80%;
+      text-align: center;
+      padding: 2px 5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden; }
