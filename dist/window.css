@@ -1,3 +1,47 @@
+.cssload-container {
+  width: 100%;
+  height: 63px;
+  text-align: center; }
+
+.cssload-speeding-wheel {
+  width: 63px;
+  height: 63px;
+  margin: 0 auto;
+  border: 4px solid #b8daff;
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: cssload-spin 575ms infinite linear;
+  -o-animation: cssload-spin 575ms infinite linear;
+  -ms-animation: cssload-spin 575ms infinite linear;
+  -webkit-animation: cssload-spin 575ms infinite linear;
+  -moz-animation: cssload-spin 575ms infinite linear; }
+
+@keyframes cssload-spin {
+  100% {
+    transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-o-keyframes cssload-spin {
+  100% {
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-ms-keyframes cssload-spin {
+  100% {
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-webkit-keyframes cssload-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-moz-keyframes cssload-spin {
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -25,86 +69,112 @@ body, #root {
   position: absolute;
   overflow: hidden; }
 
-#root {
+.connect-screen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
   display: flex;
   justify-content: center; }
-
-.middle-panel {
-  display: flex;
-  flex-direction: column;
-  width: 450px;
-  height: 100%;
-  background-color: #1c1f26; }
-  .middle-panel .top-logo,
-  .middle-panel .port-list,
-  .middle-panel .bottom-logo {
-    width: 100%;
-    margin: 0 0; }
-  .middle-panel .top-logo {
+  .connect-screen .middle-panel {
     display: flex;
-    justify-content: center;
-    height: 35%;
-    padding-top: 5%; }
-  .middle-panel .bottom-logo {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 5px;
-    height: 20%; }
-  .middle-panel .port-list {
-    height: 45%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    width: 100%;
-    margin-bottom: 5%;
-    margin-top: 5%;
-    overflow: auto; }
-    .middle-panel .port-list .port-list-info {
-      font-style: italic;
-      color: #b8daff;
-      opacity: 0;
-      animation: 1s ease 0.5s 1 forwards fadeIN; }
-    .middle-panel .port-list .port-list-item {
-      border: 1px solid #b8daff;
-      background-color: #b8daff;
-      color: #1c1f26;
-      opacity: 0;
-      margin: 0px auto;
-      margin-bottom: 15px;
-      height: 25px;
-      width: 80%;
-      display: flex;
-      flex-direction: row;
-      transition: box-shadow 0.2s ease-in;
-      transition: transform 0.2s ease-in;
-      animation: 1s ease 0.5s 1 forwards fadeIN; }
-    .middle-panel .port-list .port-list-item:hover {
-      cursor: pointer;
-      box-shadow: 3px 3px 15px 0px rgba(0, 0, 0, 0.6);
-      transform: translateX(-2px) translateY(-2px); }
-    .middle-panel .port-list .port-list-item-com {
-      width: 20%;
-      color: white;
-      text-align: center;
-      text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.7);
-      position: relative;
-      z-index: 1;
-      padding: 2px 5px; }
-    .middle-panel .port-list .port-list-item-com::before {
+    width: 450px;
+    height: 100%;
+    background-color: #1c1f26; }
+    .connect-screen .middle-panel .top-logo,
+    .connect-screen .middle-panel .port-list,
+    .connect-screen .middle-panel .bottom-logo {
       width: 100%;
-      height: 30px;
-      transform: skew(-30deg);
-      content: '';
-      top: -4px;
-      left: 3px;
-      position: absolute;
-      z-index: -1;
-      background-color: #324152; }
-    .middle-panel .port-list .port-list-item-desc {
-      width: 80%;
-      text-align: center;
-      padding: 2px 5px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden; }
+      margin: 0 0; }
+    .connect-screen .middle-panel .top-logo {
+      display: flex;
+      justify-content: center;
+      height: 35%;
+      padding-top: 5%; }
+    .connect-screen .middle-panel .bottom-logo {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 5px;
+      height: 20%; }
+    .connect-screen .middle-panel .port-list {
+      height: 45%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 5%;
+      margin-top: 5%;
+      overflow: auto; }
+      .connect-screen .middle-panel .port-list .port-list-info {
+        font-style: italic;
+        color: #b8daff;
+        opacity: 0;
+        animation: ease 0.5s 1 forwards fadeIN; }
+      .connect-screen .middle-panel .port-list .port-list-item {
+        border: 1px solid #b8daff;
+        background-color: #b8daff;
+        color: #1c1f26;
+        opacity: 0;
+        margin: 0px auto;
+        margin-bottom: 15px;
+        height: 25px;
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        transition: box-shadow 0.2s ease-in;
+        transition: transform 0.2s ease-in;
+        animation: ease 0.5s 1 forwards fadeIN; }
+      .connect-screen .middle-panel .port-list .port-list-item:hover {
+        cursor: pointer;
+        box-shadow: 3px 3px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translateX(-2px) translateY(-2px); }
+      .connect-screen .middle-panel .port-list .port-list-item-com {
+        width: 20%;
+        color: white;
+        text-align: center;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.7);
+        position: relative;
+        z-index: 1;
+        padding: 2px 5px; }
+      .connect-screen .middle-panel .port-list .port-list-item-com::before {
+        width: 100%;
+        height: 30px;
+        transform: skew(-30deg);
+        content: '';
+        top: -4px;
+        left: 3px;
+        position: absolute;
+        z-index: -1;
+        background-color: #324152; }
+      .connect-screen .middle-panel .port-list .port-list-item-desc {
+        width: 80%;
+        text-align: center;
+        padding: 2px 5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden; }
+
+.loading {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: rgba(28, 31, 28, 0.7);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ease 0.5s 1 forwards fadeIN; }
+  .loading .loading-spinner {
+    z-index: 11; }
+
+.map-screen {
+  width: 100%;
+  height: 100%;
+  position: absolute; }
+  .map-screen .map {
+    width: 100%;
+    height: 100%; }

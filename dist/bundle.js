@@ -21600,9 +21600,19 @@
 
 	var _connectscreen2 = _interopRequireDefault(_connectscreen);
 
+	var _loading = __webpack_require__(271);
+
+	var _loading2 = _interopRequireDefault(_loading);
+
+	var _mapscreen = __webpack_require__(272);
+
+	var _mapscreen2 = _interopRequireDefault(_mapscreen);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var SerialPort = window.require('serialport');
+
+	var pages = { connect: 'connect', connecting: 'connecting', loadingMap: 'loadingMap', map: 'map' };
 
 	var Window = function (_React$Component) {
 	    (0, _inherits3.default)(Window, _React$Component);
@@ -21613,14 +21623,18 @@
 	        var _this = (0, _possibleConstructorReturn3.default)(this, (Window.__proto__ || (0, _getPrototypeOf2.default)(Window)).call(this, props));
 
 	        _this.state = {
-	            isOpen: false,
+	            currentPage: pages.connect,
 	            error: null
 	        };
 	        _this.currentPort = {
 	            object: null,
-	            info: {}
+	            info: {},
+	            status: { start: false, startok: false }
 	        };
 	        _this.portHandler = _this.portHandler.bind(_this);
+	        _this.connectionHandler = _this.connectionHandler.bind(_this);
+	        _this.dataHandler = _this.dataHandler.bind(_this);
+	        _this.mapHandler = _this.mapHandler.bind(_this);
 	        return _this;
 	    }
 
@@ -21630,7 +21644,7 @@
 	            var _this2 = this;
 
 	            console.log(port.comName);
-	            this.currentPort.object = new SerialPort(port.comName, function (err) {
+	            this.currentPort.object = new SerialPort(port.comName, { baudRate: 9600, parser: SerialPort.parsers.readline(/(:.*#)/) }, function (err) {
 	                if (err) {
 	                    return _this2.setState({ error: err.message });
 	                }
@@ -21641,16 +21655,55 @@
 	                    vendorId: port.vendorId,
 	                    productId: port.productId
 	                };
-	                _this2.setState({ isOpen: true });
+	                _this2.setState({ currentPage: pages.connecting }
+
+	                //events
+	                );_this2.currentPort.object.on('error', function (err) {
+	                    _this2.setState({ error: err.message });
+	                });
+	                _this2.currentPort.object.on('data', _this2.connectionHandler);
 	            });
+	        }
+	    }, {
+	        key: 'connectionHandler',
+	        value: function connectionHandler(data) {
+	            console.log(data);
+
+	            if (this.currentPort.status.start) this.currentPort.object.write(':START@OK#');else this.currentPort.status.start = /:START#/.test(data);
+
+	            if (this.currentPort.status.startok) this.currentPort.object.write(':START#');else this.currentPort.status.startok = /:START@OK#/.test(data);
+
+	            if (this.currentPort.status.start && this.currentPort.status.startok) {
+	                this.currentPort.object.removeAllListeners();
+	                this.currentPort.object.on('data', this.dataHandler);
+	                this.setState({ currentPage: pages.loadingMap });
+	                console.log('ok');
+	            }
+	        }
+	    }, {
+	        key: 'dataHandler',
+	        value: function dataHandler(data) {
+	            console.log(data);
+	        }
+	    }, {
+	        key: 'mapHandler',
+	        value: function mapHandler() {
+	            this.setState({ currentPage: pages.map });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            this.state.isOpen ? console.log(this.currentPort.info.manufacturer) : console.log('nothing');
-	            return _react2.default.createElement(_connectscreen2.default, {
-	                portHandler: this.portHandler
-	            });
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                this.state.currentPage === pages.connect || this.state.currentPage === pages.connecting ? _react2.default.createElement(_connectscreen2.default, {
+	                    portHandler: this.portHandler
+	                }) : null,
+	                this.state.currentPage === pages.connecting || this.state.currentPage === pages.loadingMap ? _react2.default.createElement(_loading2.default, null) : null,
+	                this.state.currentPage === pages.map || this.state.currentPage === pages.loadingMap ? _react2.default.createElement(_mapscreen2.default, {
+	                    mapHandler: this.mapHandler
+	                }) : null
+	            );
 	        }
 	    }]);
 	    return Window;
@@ -23220,21 +23273,25 @@
 	function ConnectScreen(props) {
 	    return _react2.default.createElement(
 	        'section',
-	        { className: 'middle-panel' },
-	        _react2.default.createElement(_image2.default, {
-	            'class': 'top-logo',
-	            path: '../assets/SVG/top_logo.svg',
-	            onClick: null
-	        }),
-	        _react2.default.createElement(_portlist2.default, {
-	            'class': 'port-list',
-	            portHandler: props.portHandler
-	        }),
-	        _react2.default.createElement(_image2.default, {
-	            'class': 'bottom-logo',
-	            path: '../assets/SVG/bottom_logo.svg',
-	            onClick: null
-	        })
+	        { className: 'connect-screen' },
+	        _react2.default.createElement(
+	            'section',
+	            { className: 'middle-panel' },
+	            _react2.default.createElement(_image2.default, {
+	                'class': 'top-logo',
+	                path: '../assets/SVG/top_logo.svg',
+	                onClick: null
+	            }),
+	            _react2.default.createElement(_portlist2.default, {
+	                'class': 'port-list',
+	                portHandler: props.portHandler
+	            }),
+	            _react2.default.createElement(_image2.default, {
+	                'class': 'bottom-logo',
+	                path: '../assets/SVG/bottom_logo.svg',
+	                onClick: null
+	            })
+	        )
 	    );
 	}
 
@@ -23393,6 +23450,259 @@
 	}(_react2.default.Component);
 
 	exports.default = PortList;
+
+/***/ }),
+/* 271 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = Loading;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(35);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _image = __webpack_require__(269);
+
+	var _image2 = _interopRequireDefault(_image);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function Loading(props) {
+	    return _react2.default.createElement(
+	        'section',
+	        { className: 'loading' },
+	        _react2.default.createElement(
+	            'div',
+	            { className: 'cssload-container loading-spinner' },
+	            _react2.default.createElement('div', { className: 'cssload-speeding-wheel' })
+	        )
+	    );
+	}
+
+/***/ }),
+/* 272 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = MapScreen;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(35);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _optionspanel = __webpack_require__(273);
+
+	var _optionspanel2 = _interopRequireDefault(_optionspanel);
+
+	var _map = __webpack_require__(274);
+
+	var _map2 = _interopRequireDefault(_map);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function MapScreen(props) {
+	    return _react2.default.createElement(
+	        'section',
+	        { className: 'map-screen' },
+	        _react2.default.createElement(_map2.default, {
+	            mapHandler: props.mapHandler
+	        })
+	    );
+	}
+
+/***/ }),
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = OptionsPanel;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(35);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function OptionsPanel(props) {
+	    return _react2.default.createElement(
+	        'section',
+	        { className: 'options-panel' },
+	        _react2.default.createElement(
+	            'section',
+	            { className: 'style-change-container' },
+	            _react2.default.createElement(
+	                'p',
+	                { className: 'panel_title' },
+	                'Map styles'
+	            ),
+	            _react2.default.createElement(
+	                'label',
+	                { className: 'style_label', 'data-map-style': 'basic' },
+	                _react2.default.createElement('input', { type: 'radio', name: 'radiobnt', value: 'basic', checked: true }),
+	                _react2.default.createElement(
+	                    'span',
+	                    { 'data-text': 'Basic' },
+	                    'Basic'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'label',
+	                { className: 'style_label', 'data-map-style': 'streets' },
+	                _react2.default.createElement('input', { type: 'radio', name: 'radiobnt', value: 'streets' }),
+	                _react2.default.createElement(
+	                    'span',
+	                    { 'data-text': 'Streets' },
+	                    'Streets'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'label',
+	                { className: 'style_label', 'data-map-style': 'bright' },
+	                _react2.default.createElement('input', { type: 'radio', name: 'radiobnt', value: 'bright' }),
+	                _react2.default.createElement(
+	                    'span',
+	                    { 'data-text': 'Bright' },
+	                    'Bright'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'label',
+	                { className: 'style_label', 'data-map-style': 'light' },
+	                _react2.default.createElement('input', { type: 'radio', name: 'radiobnt', value: 'light' }),
+	                _react2.default.createElement(
+	                    'span',
+	                    { 'data-text': 'Light' },
+	                    'Light'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'label',
+	                { className: 'style_label', 'data-map-style': 'dark' },
+	                _react2.default.createElement('input', { type: 'radio', name: 'radiobnt', value: 'dark' }),
+	                _react2.default.createElement(
+	                    'span',
+	                    { 'data-text': 'Dark' },
+	                    'Dark'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'label',
+	                { className: 'style_label', 'data-map-style': 'satellite' },
+	                _react2.default.createElement('input', { type: 'radio', name: 'radiobnt', value: 'satellite' }),
+	                _react2.default.createElement(
+	                    'span',
+	                    { 'data-text': 'Satellite' },
+	                    'Satellite'
+	                )
+	            )
+	        )
+	    );
+	}
+
+/***/ }),
+/* 274 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(182);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(208);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(209);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(213);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(260);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(35);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var mapboxgl = window.require('mapbox-gl/dist/mapbox-gl.js');
+
+	var Map = function (_React$Component) {
+	    (0, _inherits3.default)(Map, _React$Component);
+
+	    function Map(props) {
+	        (0, _classCallCheck3.default)(this, Map);
+
+	        var _this = (0, _possibleConstructorReturn3.default)(this, (Map.__proto__ || (0, _getPrototypeOf2.default)(Map)).call(this, props));
+
+	        _this.mapKey = 'pk.eyJ1IjoiYXdpZWxndXN6ZXdza2kiLCJhIjoiY2oyN21hMWY5MDA1djMycXFueG1zd2Q2dSJ9.yI3n921FjI46G9hLbEOpIQ';
+	        return _this;
+	    }
+
+	    (0, _createClass3.default)(Map, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            mapboxgl.accessToken = this.mapKey;
+	            this.map = new mapboxgl.Map({
+	                container: 'map',
+	                style: 'mapbox://styles/mapbox/streets-v9'
+	            });
+
+	            this.map.on('load', function () {
+	                _this2.props.mapHandler();
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement('section', { id: 'map', className: 'map' });
+	        }
+	    }]);
+	    return Map;
+	}(_react2.default.Component);
+
+	exports.default = Map;
 
 /***/ })
 /******/ ]);

@@ -6,8 +6,7 @@
   "scripts": {
     "start": "electron dist/main.js",
     "devstart": "gulp move && electron dist/main.js",
-    "rebuild": ".\\node_modules\\.bin\\electron-rebuild.cmd",
-    "doc": ".\\node_modules\\.bin\\jsdoc2md main.js >> README.md"
+    "rebuild": ".\\node_modules\\.bin\\electron-rebuild.cmd"
   },
   "author": "AWielguszewski <roftii@gmail.com>",
   "license": "ISC",
