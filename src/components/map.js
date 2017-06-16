@@ -17,7 +17,14 @@ export default class Map extends React.Component {
             style: 'mapbox://styles/mapbox/streets-v9'
         });
 
-        this.map.on('load', () => { this.props.mapHandler() })
+        this.map.on('load', () => {
+            this.props.mapHandler();
+            this.map.easeTo({
+                zoom: 8,
+                center: [22.004571, 50.037532],
+                duration: 3000
+            })
+        })
     }
 
     render() {

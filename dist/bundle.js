@@ -23691,6 +23691,11 @@
 
 	            this.map.on('load', function () {
 	                _this2.props.mapHandler();
+	                _this2.map.easeTo({
+	                    zoom: 8,
+	                    center: [22.004571, 50.037532],
+	                    duration: 3000
+	                });
 	            });
 	        }
 	    }, {
