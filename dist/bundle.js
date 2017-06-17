@@ -23662,6 +23662,10 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _mapkey = __webpack_require__(275);
+
+	var _mapkey2 = _interopRequireDefault(_mapkey);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var mapboxgl = window.require('mapbox-gl/dist/mapbox-gl.js');
@@ -23671,11 +23675,7 @@
 
 	    function Map(props) {
 	        (0, _classCallCheck3.default)(this, Map);
-
-	        var _this = (0, _possibleConstructorReturn3.default)(this, (Map.__proto__ || (0, _getPrototypeOf2.default)(Map)).call(this, props));
-
-	        _this.mapKey = 'pk.eyJ1IjoiYXdpZWxndXN6ZXdza2kiLCJhIjoiY2oyN21hMWY5MDA1djMycXFueG1zd2Q2dSJ9.yI3n921FjI46G9hLbEOpIQ';
-	        return _this;
+	        return (0, _possibleConstructorReturn3.default)(this, (Map.__proto__ || (0, _getPrototypeOf2.default)(Map)).call(this, props));
 	    }
 
 	    (0, _createClass3.default)(Map, [{
@@ -23683,7 +23683,7 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            mapboxgl.accessToken = this.mapKey;
+	            mapboxgl.accessToken = _mapkey2.default;
 	            this.map = new mapboxgl.Map({
 	                container: 'map',
 	                style: 'mapbox://styles/mapbox/streets-v9'
@@ -23708,6 +23708,19 @@
 	}(_react2.default.Component);
 
 	exports.default = Map;
+
+/***/ }),
+/* 275 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var Mapkey = 'pk.eyJ1IjoiYXdpZWxndXN6ZXdza2kiLCJhIjoiY2oyN21hMWY5MDA1djMycXFueG1zd2Q2dSJ9.yI3n921FjI46G9hLbEOpIQ';
+
+	exports.default = Mapkey;
 
 /***/ })
 /******/ ]);

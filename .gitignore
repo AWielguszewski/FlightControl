@@ -1,4 +1,5 @@
 node_modules
 .vscode
+src/mapkey.js
 temp
 DO USUNIECIA
