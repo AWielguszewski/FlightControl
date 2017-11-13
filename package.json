@@ -24,14 +24,19 @@
     "gulp-sass": "^3.1.0",
     "jsdoc-to-markdown": "^3.0.0",
     "node-sass": "^4.5.3",
+    "reactotron-react-js": "^1.12.2",
+    "reactotron-redux": "^1.12.2",
+    "reactotron-redux-saga": "^1.12.2",
+    "redux-saga": "^0.16.0",
     "sass-loader": "^6.0.5",
-    "serialport": "^4.0.7",
     "webpack": "^2.6.0",
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
+    "serialport": "^4.0.7",
     "jquery": "^3.2.1",
     "babel-polyfill": "^6.23.0",
+    "redux": "^3.7.2",
     "mapbox-gl": "^0.36.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
