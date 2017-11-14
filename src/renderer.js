@@ -1,10 +1,9 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './reactotronConfig'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import Window from './components/window.js'
+import Window from './components/window.js';
 
 ReactDOM.render(
     <Window />,
