@@ -1,38 +1,33 @@
 'use strict';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { slide as Menu } from 'react-burger-menu'
+import { Radio } from 'antd'
+const RadioGroup = Radio.Group
+import { colors } from '../constants'
 
-export default function OptionsPanel(props) {
-    return (
-        <section className="options-panel">
-            <section className="style-change-container">
-                <p className="panel_title">{'Map styles'}</p>
-                <label className="style_label" data-map-style="basic">
-                    <input type="radio" name="radiobnt" value="basic" checked />
-                    <span data-text="Basic">{'Basic'}</span>
-                </label>
-                <label className="style_label" data-map-style="streets">
-                    <input type="radio" name="radiobnt" value="streets" />
-                    <span data-text="Streets">{'Streets'}</span>
-                </label>
-                <label className="style_label" data-map-style="bright">
-                    <input type="radio" name="radiobnt" value="bright" />
-                    <span data-text="Bright">{'Bright'}</span>
-                </label>
-                <label className="style_label" data-map-style="light">
-                    <input type="radio" name="radiobnt" value="light" />
-                    <span data-text="Light">{'Light'}</span>
-                </label>
-                <label className="style_label" data-map-style="dark">
-                    <input type="radio" name="radiobnt" value="dark" />
-                    <span data-text="Dark">{'Dark'}</span>
-                </label>
-                <label className="style_label" data-map-style="satellite">
-                    <input type="radio" name="radiobnt" value="satellite" />
-                    <span data-text="Satellite">{'Satellite'}</span>
-                </label>
-            </section>
-        </section>
-    );
+export default class OptionsPanel extends React.Component {
+    onChange(e) {
+
+    }
+
+    render() {
+        return (
+            <Menu {...this.props}>
+                <RadioGroup onChange={this.onChange} defaultValue={1}>
+                    <Radio style={radioStyle} value={1}>Option A</Radio>
+                    <Radio style={radioStyle} value={2}>Option B</Radio>
+                    <Radio style={radioStyle} value={3}>Option C</Radio>
+                </RadioGroup>
+            </Menu>
+        )
+    }
 }
+
+const radioStyle = {
+    display: 'block',
+    height: '30px',
+    lineHeight: '30px',
+    color: colors.color2
+} 

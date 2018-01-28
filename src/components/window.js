@@ -15,7 +15,11 @@ export default class Window extends React.Component {
         super(props);
         this.state = {
             currentPage: pages.connect,
-            error: null
+            error: null,
+            latitude: null,
+            longitude: null,
+            altitude: null,
+            direction: null
         }
         this.currentPort = {
             object: null,
@@ -28,8 +32,10 @@ export default class Window extends React.Component {
         this.mapHandler = this.mapHandler.bind(this);
     }
 
+    componentWillUpdate(nextProps, nextState) {
+    }
+
     portHandler(port) {
-        console.log(port.comName);
         this.currentPort.object = new SerialPort(port.comName,
             { baudRate: 9600, parser: SerialPort.parsers.readline(/(:.*#)/) },
             err => {
@@ -54,24 +60,32 @@ export default class Window extends React.Component {
     }
 
     connectionHandler(data) {
-        console.log(data)
+        if (/:START#/.test(data)) this.currentPort.status.start = true;
+        if (/:START@OK#/.test(data)) this.currentPort.status.startok = true;
 
         if (this.currentPort.status.start) this.currentPort.object.write(':START@OK#');
-        else this.currentPort.status.start = /:START#/.test(data);
-
-        if (this.currentPort.status.startok) this.currentPort.object.write(':START#');
-        else this.currentPort.status.startok = /:START@OK#/.test(data);
+        if (!this.currentPort.status.startok) this.currentPort.object.write(':START#');
 
         if (this.currentPort.status.start && this.currentPort.status.startok) {
             this.currentPort.object.removeAllListeners();
             this.currentPort.object.on('data', this.dataHandler)
             this.setState({ currentPage: pages.loadingMap });
-            console.log('ok')
+            console.log('Connection established')
         }
     }
 
     dataHandler(data) {
-        console.log(data)
+        let lat = /:LAT(\d{1,2}\.\d{6})#/.exec(data)
+        let lon = /:LON(\d{1,2}\.\d{6})#/.exec(data)
+        let alt = /:ALT(\d{1,6})#/.exec(data)
+        let dir = /:DIR(-?\d{1,2}\.\d{6})#/.exec(data)
+        if (lat || lon || alt || dir)
+            this.setState({
+                latitude: lat ? parseFloat(lat[1]) : this.state.latitude,
+                longitude: lon ? parseFloat(lon[1]) : this.state.longitude,
+                altitude: alt ? parseInt(alt[1]) : this.state.altitude,
+                direction: dir ? parseFloat(dir[1]) : this.state.direction,
+            })
     }
 
     mapHandler() {
@@ -91,6 +105,10 @@ export default class Window extends React.Component {
                 {this.state.currentPage === pages.map || this.state.currentPage === pages.loadingMap ?
                     <MapScreen
                         mapHandler={this.mapHandler}
+                        latitude={this.state.latitude}
+                        longitude={this.state.longitude}
+                        altitude={this.state.altitude}
+                        direction={this.state.direction}
                     /> : null}
             </div>
         );
