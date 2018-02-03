@@ -1,4 +1,4 @@
-@import url(../../node_modules/antd/dist/antd.css);
+@import url(../node_modules/antd/dist/antd.css);
 .cssload-container {
   width: 100%;
   height: 63px;
@@ -180,13 +180,6 @@ body, #root {
     width: 100%;
     height: 100%; }
 
-#lockButton {
-  position: fixed;
-  height: 50px;
-  width: 50px;
-  bottom: 30px;
-  right: 10px; }
-
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
@@ -211,7 +204,7 @@ body, #root {
 /* General sidebar styles */
 .bm-menu {
   background: #1c1f26;
-  padding: 2.5em 1.5em 0;
+  padding: 40px 0 0;
   font-size: 1.15em; }
 
 /* Morph shape necessary with bubble or elastic */
@@ -221,8 +214,19 @@ body, #root {
 /* Wrapper for item list */
 .bm-item-list {
   color: #324152;
-  padding: 0.8em; }
+  padding: 0; }
 
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3); }
+
+.ant-menu-submenu > .ant-menu {
+  background-color: transparent; }
+
+.ant-menu {
+  background-color: transparent;
+  color: #b8daff; }
+
+.ant-menu-inline .ant-menu-submenu-title {
+  font-size: 20px;
+  font-weight: bold; }

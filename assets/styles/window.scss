@@ -1,5 +1,5 @@
 @import 'spinner';
-@import '../../node_modules/antd/dist/antd.css';
+@import '../node_modules/antd/dist/antd.css';
 
 $color1: #1c1f26;
 $color1-soft: rgba(28,31,28,0.7);
@@ -183,7 +183,7 @@ body, #root {
   /* General sidebar styles */
   .bm-menu {
     background: $color1;
-    padding: 2.5em 1.5em 0;
+    padding: 40px 0 0;
     font-size: 1.15em;
   }
   
@@ -195,10 +195,25 @@ body, #root {
   /* Wrapper for item list */
   .bm-item-list {
     color: $color3;
-    padding: 0.8em;
+    padding: 0;
   }
   
   /* Styling of overlay */
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
   }
+
+.ant-menu-submenu > .ant-menu {
+    background-color: transparent;
+}
+
+.ant-menu{
+    background-color: transparent;
+    color: $color2;
+
+}
+
+.ant-menu-inline .ant-menu-submenu-title {
+    font-size: 20px;
+    font-weight: bold;
+}

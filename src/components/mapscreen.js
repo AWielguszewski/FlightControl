@@ -12,18 +12,30 @@ export default class MapScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            lockedToCenter: true
+            lockedToCenter: true,
+            currentStyle: 'basic'
         }
+        this.onStyleChange = this.onStyleChange.bind(this)
+    }
+
+    onStyleChange(e) {
+        this.setState({ currentStyle: e.target.value })
     }
 
     render() {
         return (
             <section id='outer-container' className="map-screen" >
-                <OptionsPanel outerContainerId={'outer-container'} pageWrapId={'page-wrap'} />
+                <OptionsPanel
+                    outerContainerId={'outer-container'}
+                    pageWrapId={'page-wrap'}
+                    currentStyle={this.state.currentStyle}
+                    onStyleChange={this.onStyleChange}
+                />
                 <Map
                     id='page-wrap'
                     lockedToCenter={this.state.lockedToCenter}
                     {...this.props}
+                    currentStyle={this.state.currentStyle}
                 />
                 <Button
                     style={buttonStyle}

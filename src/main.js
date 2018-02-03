@@ -25,11 +25,7 @@ function createWindow() {
         resizable: true
     })
 
-    win.loadURL(url.format({
-        pathname: path.join('..', 'src', 'window.html'),
-        protocol: 'file:',
-        slashes: true
-    }))
+    win.loadURL('file://' + __dirname + '/window.html')
 
     exports.win;
 
