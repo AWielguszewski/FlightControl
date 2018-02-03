@@ -30,6 +30,7 @@
     "webpack-stream": "^4.0.0"
   },
   "dependencies": {
+    "@turf/turf": "^5.1.6",
     "babel-polyfill": "^6.23.0",
     "jquery": "^3.2.1",
     "mapbox-gl": "^0.44.0",

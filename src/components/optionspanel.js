@@ -48,7 +48,8 @@ export default class OptionsPanel extends React.Component {
                             <Radio style={radioStyle} value={'satellite'}>Satellite</Radio>
                         </RadioGroup>
                     </SubMenu>
-                    <SubMenu key="graphs" title={<span><Icon type="area-chart" /><span>Graphs</span></span>}>
+                    <SubMenu key="graphs" title={<span><Icon type="area-chart" /><span>Statistics</span></span>}>
+                        <Menu.Item key="1"><span><Icon type="share-alt" /><span>{`Distance covered: ${this.props.distance.toPrecision(2)} km`}</span></span></Menu.Item>
                     </SubMenu>
                     <SubMenu key="logs" title={<span><Icon type="download" /><span>Logs</span></span>}>
                     </SubMenu>
