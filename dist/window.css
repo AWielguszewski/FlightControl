@@ -230,3 +230,13 @@ body, #root {
 .ant-menu-inline .ant-menu-submenu-title {
   font-size: 20px;
   font-weight: bold; }
+
+.VictoryContainer {
+  width: 230px !important;
+  margin-left: 40px; }
+
+.ant-menu-item {
+  background-color: #1c1f26 !important; }
+
+.ant-checkbox-wrapper {
+  color: #b8daff; }

@@ -217,3 +217,16 @@ body, #root {
     font-size: 20px;
     font-weight: bold;
 }
+
+.VictoryContainer {
+    width: 230px !important;
+    margin-left: 40px;
+}
+
+.ant-menu-item {
+    background-color: $color1 !important;
+}
+
+.ant-checkbox-wrapper {
+    color : $color2;
+}

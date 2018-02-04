@@ -50,6 +50,9 @@ export default class MapScreen extends React.Component {
                     currentStyle={this.state.currentStyle}
                     onStyleChange={this.onStyleChange}
                     distance={this.state.distance}
+                    altitude={this.props.altitude}
+                    latitude={this.props.latitude}
+                    longitude={this.props.longitude}
                 />
                 <Map
                     id='page-wrap'
