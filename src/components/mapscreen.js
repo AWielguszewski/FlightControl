@@ -15,9 +15,17 @@ export default class MapScreen extends React.Component {
         this.state = {
             lockedToCenter: true,
             currentStyle: 'basic',
-            distance: 0.0
+            distance: 0.0,
+            planning: false,
+            cursorPoint: {
+                x: '0',
+                y: '0'
+            },
+            plannedDistance: 0
         }
         this.onStyleChange = this.onStyleChange.bind(this)
+        this.onCursorPointChange = this.onCursorPointChange.bind(this)
+        this.onPlannedDistanceChange = this.onPlannedDistanceChange.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -37,8 +45,16 @@ export default class MapScreen extends React.Component {
         }
     }
 
+    onPlannedDistanceChange(distance) {
+        this.setState({ plannedDistance: distance })
+    }
+
     onStyleChange(e) {
         this.setState({ currentStyle: e.target.value })
+    }
+
+    onCursorPointChange(point) {
+        this.setState({ cursorPoint: point })
     }
 
     render() {
@@ -59,18 +75,64 @@ export default class MapScreen extends React.Component {
                     lockedToCenter={this.state.lockedToCenter}
                     {...this.props}
                     currentStyle={this.state.currentStyle}
+                    planning={this.state.planning}
+                    onCursorPointChange={this.onCursorPointChange}
+                    onPlannedDistanceChange={this.onPlannedDistanceChange}
+                />
+                <Button
+                    style={buttonStyle2}
+                    type="primary"
+                    shape="circle"
+                    icon={this.state.planning ? 'close' : 'share-alt'}
+                    size={'large'}
+                    onClick={() => this.setState({ planning: !this.state.planning, lockedToCenter: this.state.planning })}
                 />
                 <Button
                     style={buttonStyle}
+                    disabled={this.state.planning}
                     type="primary"
                     shape="circle"
                     icon={this.state.lockedToCenter ? 'unlock' : 'lock'}
                     size={'large'}
                     onClick={() => this.setState({ lockedToCenter: !this.state.lockedToCenter })}
                 />
+                {
+                    this.state.planning ?
+                        <div style={pointStyle}>
+                            <span style={{ color: colors.color2 }}>{`cursor: [${this.state.cursorPoint.x},${this.state.cursorPoint.y}]`}</span>
+                        </div>
+                        : null
+                }
+                {
+                    this.state.planning ?
+                        <div style={pointStyle2}>
+                            <span style={{ color: colors.color2 }}>{`distance: ${this.state.plannedDistance}km`}</span>
+                        </div>
+                        : null
+                }
             </section>
         )
     }
+}
+
+const pointStyle = {
+    position: 'fixed',
+    backgroundColor: colors.color1_soft,
+    height: '30px',
+    minWidth: '100px',
+    padding: '5px',
+    top: '10px',
+    right: '10px'
+}
+
+const pointStyle2 = {
+    position: 'fixed',
+    backgroundColor: colors.color1_soft,
+    height: '30px',
+    minWidth: '120px',
+    padding: '5px',
+    top: '50px',
+    right: '10px'
 }
 
 const buttonStyle = {
@@ -78,5 +140,13 @@ const buttonStyle = {
     borderColor: colors.color2,
     position: 'fixed',
     bottom: '30px',
+    right: '10px'
+}
+
+const buttonStyle2 = {
+    backgroundColor: colors.color1,
+    borderColor: colors.color2,
+    position: 'fixed',
+    bottom: '90px',
     right: '10px'
 }
